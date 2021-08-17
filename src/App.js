@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect, useState } from 'react';
+import { Button, Card } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import './App.css';
 
 function App() {
+  const history = useHistory()
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (isLoading) {
+      history.push("/registros")
+    }
+  }, [isLoading, history])
+
+  const handleClick = () => setIsLoading(true)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Card body className="text-center">
+      <h1>Manga Rosa</h1>
+
+      <Button
+        disabled={isLoading}
+        onClick={!isLoading ? handleClick : null}
+      >
+        Registros
+      </Button>
+    </Card>
   );
 }
 
